@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="
+        http://www.springframework.org/schema/beans
+        https://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!-- ========== 1️⃣ Setter Injection – Literal Values ========== -->
+    <bean id="student1" class="fit.iuh.Bai1_VD.xmlbased.Student">
+        <property name="id" value="1"/>
+        <property name="name" value="Nguyen Van A"/>
+    </bean>
+
+    <!-- ========== 2️⃣ Object Injection (Setter) ========== -->
+    <bean id="class1" class="fit.iuh.Bai1_VD.xmlbased.Class_">
+        <property name="classId" value="DHKT17C"/>
+        <property name="className" value="Dai Hoc KTPM17C"/>
+    </bean>
+
+    <bean id="student2" class="fit.iuh.Bai1_VD.xmlbased.Student">
+        <property name="id" value="2"/>
+        <property name="name" value="Nguyen Van B"/>
+        <property name="class_" ref="class1"/>
+    </bean>
+
+    <!-- ========== 3️⃣ Constructor Injection (Object Injection) ========== -->
+    <bean id="student3" class="fit.iuh.Bai1_VD.xmlbased.Student">
+        <constructor-arg name="id" value="3"/>
+        <constructor-arg name="name" value="Nguyen Van C"/>
+        <constructor-arg name="class_" ref="class1"/>
+    </bean>
+
+    <!-- ========== 4️⃣ Collection Injection ========== -->
+    <bean id="address1" class="fit.iuh.Bai1_VD.xmlbased.Address">
+        <property name="street" value="Nguyen Van Bao"/>
+        <property name="city" value="HCM"/>
+        <property name="country" value="Viet Nam"/>
+    </bean>
+
+    <bean id="address2" class="fit.iuh.Bai1_VD.xmlbased.Address">
+        <property name="street" value="Nguyen Thai Son"/>
+        <property name="city" value="HCM"/>
+        <property name="country" value="Viet Nam"/>
+    </bean>
+
+    <bean id="person" class="fit.iuh.Bai1_VD.xmlbased.Person">
+        <property name="name" value="Nguyen Van AI"/>
+        <property name="age" value="25"/>
+        <property name="addresses">
+            <list>
+                <ref bean="address1"/>
+                <ref bean="address2"/>
+            </list>
+        </property>
+        <property name="emails">
+            <list>
+                <value>a1@gmail.com</value>
+                <value>a1@yopmail.com</value>
+            </list>
+        </property>
+    </bean>
+
+    <!-- ========== 5️⃣ Literal Values Injection (Property file) ========== -->
+    <bean id="classProperties"
+          class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="locations">
+            <list>
+                <value>classpath:class.properties</value>
+            </list>
+        </property>
+    </bean>
+
+    <bean id="class2" class="fit.iuh.Bai1_VD.xmlbased.Class_">
+        <property name="classId" value="DHKT17PM"/>
+        <property name="className" value="${className}"/>
+    </bean>
+
+</beans>
